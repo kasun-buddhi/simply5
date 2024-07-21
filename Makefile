@@ -9,4 +9,8 @@ elaborate:
 simulate: 
 	vsim $(MODE) alu_opt
 
+clean:
+	rm -rf work
+	rm transcript
+
 run: compile elaborate simulate
