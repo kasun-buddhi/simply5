@@ -7,7 +7,8 @@ elaborate:
 	vopt +acc -o alu_opt alu_tb -work work
 
 simulate: 
-	vsim $(MODE) alu_opt
+	vsim $(MODE) alu_opt \
+	-do run.do 
 
 clean:
 	rm -rf work
