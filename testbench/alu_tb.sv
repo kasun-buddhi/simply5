@@ -36,7 +36,7 @@ module alu_tb();
         $display("data1 : %p, data2: %p, opcode: %p, result: %p ",data1, data2, opcode, result);
         opcode  = 7'b0110011;
         func7   = 7'b0100000;
-        func3   = 3'b110;
+        func3   = 3'b111;
         #(1);
         $display("data1 : %b, data2: %b, opcode: %b, result: %b",data1, data2, opcode, result);
     end
