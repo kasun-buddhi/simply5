@@ -50,18 +50,22 @@ module alu #(
                     else
                         operation = SUB;
                 end
-                else if(func3_i == 3'b001) // SLL
+                else if(func3_i == 3'b001) begin// SLL
                     operation = SLL;
-                    error = 1'b0;
-                else if(func3_i == 3'b010) // SLT
+                    error = 1'b0; 
+                end
+                else if(func3_i == 3'b010) begin// SLT
                     operation = SLT;
                     error = 1'b0;
-                else if(func3_i == 3'b011) // SLTU
+                end
+                else if(func3_i == 3'b011) begin// SLTU
                     operation = SLTU;
                     error = 1'b0;
-                else if(func3_i == 3'b100) // XOR
+                end
+                else if(func3_i == 3'b100) begin // XOR
                     operation = XOR;
                     error = 1'b0;
+                end
                 else if(func3_i == 3'b101) begin // SRL & SRA
                     error = 1'b0;
                     if(func7_i == 7'b0100000) 
@@ -69,9 +73,10 @@ module alu #(
                     else
                         operation = SRA;
                 end
-                else if(func3_i == 3'b110) // OR
+                else if(func3_i == 3'b110) begin // OR
                     operation = OR;
                     error = 1'b0;
+                end
                 else if(func3_i == 3'b111) begin // AND
                     operation = AND;
                     error = 1'b0;
@@ -97,9 +102,47 @@ module alu #(
             // ADD 
             ADD :   result_o = data1_i + data2_i;
             SUB :   result_o = data1_i + data2_twos_complement;
-            XOR :   result_o = data1_i * data2_i;
+            XOR :   result_o = data1_i ^ data2_i;
             OR  :   result_o = data1_i | data2_i;
             AND :   result_o = data1_i & data2_i;
+            SLL :   begin
+                case(data2_i)
+                    32'd0  : result_o = data1_i;
+                    32'd1  : result_o = {data1_i[REGISTER_SIZE-2:0] ,1'b0};
+                    32'd2  : result_o = {data1_i[REGISTER_SIZE-3:0] ,{2{1'b0}}};
+                    32'd3  : result_o = {data1_i[REGISTER_SIZE-4:0] ,{3{1'b0}}};
+                    32'd4  : result_o = {data1_i[REGISTER_SIZE-5:0] ,{4{1'b0}}};
+                    32'd5  : result_o = {data1_i[REGISTER_SIZE-6:0] ,{5{1'b0}}};
+                    32'd6  : result_o = {data1_i[REGISTER_SIZE-7:0] ,{6{1'b0}}};
+                    32'd7  : result_o = {data1_i[REGISTER_SIZE-8:0] ,{7{1'b0}}};
+                    32'd8  : result_o = {data1_i[REGISTER_SIZE-9:0] ,{8{1'b0}}};
+                    32'd9  : result_o = {data1_i[REGISTER_SIZE-10:0],{9{1'b0}}};
+                    32'd10 : result_o = {data1_i[REGISTER_SIZE-11:0],{10{1'b0}}};
+                    32'd11 : result_o = {data1_i[REGISTER_SIZE-12:0],{11{1'b0}}};
+                    32'd12 : result_o = {data1_i[REGISTER_SIZE-13:0],{12{1'b0}}};
+                    32'd13 : result_o = {data1_i[REGISTER_SIZE-14:0],{13{1'b0}}};
+                    32'd14 : result_o = {data1_i[REGISTER_SIZE-15:0],{14{1'b0}}};
+                    32'd15 : result_o = {data1_i[REGISTER_SIZE-16:0],{15{1'b0}}};
+                    32'd16 : result_o = {data1_i[REGISTER_SIZE-17:0],{16{1'b0}}};
+                    32'd17 : result_o = {data1_i[REGISTER_SIZE-18:0],{17{1'b0}}};
+                    32'd18 : result_o = {data1_i[REGISTER_SIZE-19:0],{18{1'b0}}};
+                    32'd19 : result_o = {data1_i[REGISTER_SIZE-20:0],{19{1'b0}}};
+                    32'd20 : result_o = {data1_i[REGISTER_SIZE-21:0],{20{1'b0}}};
+                    32'd21 : result_o = {data1_i[REGISTER_SIZE-22:0],{21{1'b0}}};
+                    32'd22 : result_o = {data1_i[REGISTER_SIZE-23:0],{22{1'b0}}};
+                    32'd23 : result_o = {data1_i[REGISTER_SIZE-24:0],{23{1'b0}}};
+                    32'd24 : result_o = {data1_i[REGISTER_SIZE-25:0],{24{1'b0}}};
+                    32'd25 : result_o = {data1_i[REGISTER_SIZE-26:0],{25{1'b0}}};
+                    32'd26 : result_o = {data1_i[REGISTER_SIZE-27:0],{26{1'b0}}};
+                    32'd27 : result_o = {data1_i[REGISTER_SIZE-28:0],{27{1'b0}}};
+                    32'd28 : result_o = {data1_i[REGISTER_SIZE-29:0],{28{1'b0}}};
+                    32'd29 : result_o = {data1_i[REGISTER_SIZE-30:0],{29{1'b0}}};
+                    32'd30 : result_o = {data1_i[REGISTER_SIZE-31:0],{30{1'b0}}};
+                    default : begin
+                        result_o = 32'h0;
+                    end
+                endcase
+            end
             default : begin 
                 $display("Not in implemented arithmatics");
             end

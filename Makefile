@@ -1,7 +1,7 @@
 MODE  ?= -c 
 
 compile: 
-	vlog -incr -sv rlt/alu.sv testbench/alu_tb.sv
+	vlog -incr -sv testbench/text_colors.sv rlt/alu.sv testbench/alu_tb.sv 
 
 elaborate:
 	vopt +acc -o alu_opt alu_tb -work work
