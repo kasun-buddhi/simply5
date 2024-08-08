@@ -143,6 +143,44 @@ module alu #(
                     end
                 endcase
             end
+            SRL : begin
+                case(data2_i)
+                    32'd0   : result_o = data1_i;
+                    32'd1   : result_o = {1'b0,       data1_i[REGISTER_SIZE-1:1]};
+                    32'd2   : result_o = {{2{1'b0}},  data1_i[REGISTER_SIZE-1:2]};
+                    32'd3   : result_o = {{3{1'b0}},  data1_i[REGISTER_SIZE-1:3]};
+                    32'd4   : result_o = {{4{1'b0}},  data1_i[REGISTER_SIZE-1:4]};
+                    32'd5   : result_o = {{5{1'b0}},  data1_i[REGISTER_SIZE-1:5]};
+                    32'd6   : result_o = {{6{1'b0}},  data1_i[REGISTER_SIZE-1:6]};
+                    32'd7   : result_o = {{7{1'b0}},  data1_i[REGISTER_SIZE-1:7]};
+                    32'd8   : result_o = {{8{1'b0}},  data1_i[REGISTER_SIZE-1:8]};
+                    32'd9   : result_o = {{9{1'b0}},  data1_i[REGISTER_SIZE-1:9]};
+                    32'd10  : result_o = {{10{1'b0}}, data1_i[REGISTER_SIZE-1:10]};
+                    32'd11  : result_o = {{11{1'b0}}, data1_i[REGISTER_SIZE-1:11]};
+                    32'd12  : result_o = {{12{1'b0}}, data1_i[REGISTER_SIZE-1:12]};
+                    32'd13  : result_o = {{13{1'b0}}, data1_i[REGISTER_SIZE-1:13]};
+                    32'd14  : result_o = {{14{1'b0}}, data1_i[REGISTER_SIZE-1:14]};
+                    32'd15  : result_o = {{15{1'b0}}, data1_i[REGISTER_SIZE-1:15]};
+                    32'd16  : result_o = {{16{1'b0}}, data1_i[REGISTER_SIZE-1:16]};
+                    32'd17  : result_o = {{17{1'b0}}, data1_i[REGISTER_SIZE-1:17]};
+                    32'd18  : result_o = {{18{1'b0}}, data1_i[REGISTER_SIZE-1:18]};
+                    32'd19  : result_o = {{19{1'b0}}, data1_i[REGISTER_SIZE-1:19]};
+                    32'd20  : result_o = {{20{1'b0}}, data1_i[REGISTER_SIZE-1:20]};
+                    32'd21  : result_o = {{21{1'b0}}, data1_i[REGISTER_SIZE-1:21]};
+                    32'd22  : result_o = {{22{1'b0}}, data1_i[REGISTER_SIZE-1:22]};
+                    32'd23  : result_o = {{23{1'b0}}, data1_i[REGISTER_SIZE-1:23]};
+                    32'd24  : result_o = {{24{1'b0}}, data1_i[REGISTER_SIZE-1:24]};
+                    32'd25  : result_o = {{25{1'b0}}, data1_i[REGISTER_SIZE-1:25]};
+                    32'd26  : result_o = {{26{1'b0}}, data1_i[REGISTER_SIZE-1:26]};
+                    32'd27  : result_o = {{27{1'b0}}, data1_i[REGISTER_SIZE-1:27]};
+                    32'd28  : result_o = {{28{1'b0}}, data1_i[REGISTER_SIZE-1:28]};
+                    32'd29  : result_o = {{29{1'b0}}, data1_i[REGISTER_SIZE-1:29]};
+                    32'd30  : result_o = {{30{1'b0}}, data1_i[REGISTER_SIZE-1:30]};
+                    default : begin
+                        result_o = 32'h0;
+                    end
+                endcase
+            end
             default : begin 
                 $display("Not in implemented arithmatics");
             end

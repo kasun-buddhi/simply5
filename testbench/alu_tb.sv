@@ -113,6 +113,19 @@ module alu_tb();
         end
         $display("%s ###### SLL operation is PASSED ######## %s",GREEN, WHITE);
 
+        //right shift
+        $display("%s ###### checking SRL operation ######## %s",PURPLE,WHITE);
+        opcode    = 7'b0110011;
+        func3     = 3'b101;
+        func7     = 7'b0000000;
+        #(delta_time_delay);
+        repeat(10) begin
+            data1 = $urandom_range(0, 32'hffffffff);
+            data2 = $urandom_range(0, 32'hf);
+            #(delta_time_delay);
+            rshift_checker(data1, data2, result);
+        end
+        $display("%s ###### SRL operation is PASSED ######## %s",GREEN, WHITE);
     end
 endmodule: alu_tb
 
@@ -133,10 +146,10 @@ endfunction: adder_checker
 function void sub_checker(
     logic   [31:0]   number1,
     logic   [31:0]   number2,
-    logic   [31:0]   sum                     
+    logic   [31:0]   sub
 );
-    if(number1 - number2 == sum) 
-        $display("ADD %b - %b = %b : PASSED", number1, number2, sum );
+    if(number1 - number2 == sub) 
+        $display("SUB %b - %b = %b : PASSED", number1, number2, sub);
     else begin
         $display("%s FAILED %s",RED, WHITE);
         $finish();
@@ -146,10 +159,10 @@ endfunction: sub_checker
 function void xor_checker(
     logic   [31:0]   number1,
     logic   [31:0]   number2,
-    logic   [31:0]   sum                     
+    logic   [31:0]   xor_result
 );
-    if(number1 ^ number2 == sum) 
-        $display("ADD %b ^ %b = %b : PASSED", number1, number2, sum );
+    if(number1 ^ number2 == xor_result) 
+        $display("XOR %b ^ %b = %b : PASSED", number1, number2, xor_result);
     else begin
         $display("%s FAILED %s",RED, WHITE);
         $finish();
@@ -159,10 +172,10 @@ endfunction: xor_checker
 function void or_checker(
     logic   [31:0]   number1,
     logic   [31:0]   number2,
-    logic   [31:0]   sum                     
+    logic   [31:0]   or_result
 );
-    if(number1 | number2 == sum) 
-        $display("ADD %b | %b = %b : PASSED", number1, number2, sum );
+    if(number1 | number2 == or_result) 
+        $display("OR %b | %b = %b : PASSED", number1, number2, or_result);
     else begin
         $display("%s FAILED %s",RED, WHITE);
         $finish();
@@ -172,12 +185,12 @@ endfunction: or_checker
 function void and_checker(
     logic   [31:0]   number1,
     logic   [31:0]   number2,
-    logic   [31:0]   sum                     
+    logic   [31:0]   and_result
 );
-    if((number1 & number2) == sum) 
-        $display("ADD %b & %b = %b : PASSED", number1, number2, sum );
+    if((number1 & number2) == and_result) 
+        $display("AND %b & %b = %b : PASSED", number1, number2, and_result);
     else begin
-        $display("%s ADD %b & %b != %b [[FAILED]] %s",RED, number1, number2, sum, WHITE);
+        $display("%s AND %b & %b != %b [[FAILED]] %s",RED, number1, number2, and_result, WHITE);
         $finish();
     end
 endfunction: and_checker 
@@ -185,12 +198,25 @@ endfunction: and_checker
 function void lshift_checker(
     logic   [31:0]   number1,
     logic   [31:0]   number2,
-    logic   [31:0]   sum                     
+    logic   [31:0]   sll
 );
-    if(number1 << number2 == sum) 
-        $display("ADD %b << %b = %b : PASSED", number1, number2, sum );
+    if(number1 << number2 == sll) 
+        $display("SLL %b << %b = %b : PASSED", number1, number2, sll);
     else begin
         $display("%s FAILED %s",RED, WHITE);
         $finish();
     end
 endfunction: lshift_checker 
+
+function void rshift_checker(
+    logic   [31:0]   number1,
+    logic   [31:0]   number2,
+    logic   [31:0]   srl 
+);
+    if(number1 >> number2 == srl) 
+        $display("SRL %b >> %b = %b : PASSED", number1, number2, srl);
+    else begin
+        $display("%s SRL %b >> %b != %b [[FAILED]] %s",RED, number1, number2, srl, WHITE);
+        $finish();
+    end
+endfunction: rshift_checker 
